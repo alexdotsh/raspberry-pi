@@ -1,0 +1,7 @@
+# Use kernel8 on Raspberry Pi running buster os
+kernel=kernel8.img
+
+# This setting will change the behaviour so that the fan turns on at 80C, turns off when it comes back down to 75C.
+# If the temperature reaches 82C it will go full blast until it drops back down to 80C.
+# You can play with the values and adjust them so that they suit you
+dtparam=poe_fan_temp0=80000,poe_fan_temp0_hyst=5000,poe_fan_temp1=82000,poe_fan_temp1_hyst=2000
