@@ -42,8 +42,9 @@ $ vim /boot/config.txt
 
 ## Configurations
  
-To enable headless WiFi
-Place `wpa_supplicant.conf`in `/boot/`
+To enable headless WiFi:
+
+Place `wpa_supplicant.conf` in `/boot/`
 
 Create an empty ssh file in `/boot/` to enable ssh access
 
