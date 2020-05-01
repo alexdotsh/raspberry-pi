@@ -1,6 +1,6 @@
 # Raspberry Pi
 
-### Commands
+## Commands
 
 `vcgencmd` is a command line utility that can get various pieces of information from the VideoCore GPU on the Raspberry Pi
 ```bash
@@ -39,3 +39,12 @@ Modify boot config.txt
 ```bash
 $ vim /boot/config.txt
 ```
+
+## Configurations
+ 
+To enable headless WiFi
+Place `wpa_supplicant.conf`in `/boot/`
+
+Create an empty ssh file in `/boot/` to enable ssh access
+
+Place `config.txt` in `/boot/` to set configurations
