@@ -2,7 +2,8 @@
 
 ## Commands
 
-`vcgencmd` is a command line utility that can get various pieces of information from the VideoCore GPU on the Raspberry Pi
+The `vcgencmd` is a command line utility that can get various pieces of information from the VideoCore GPU on the Raspberry Pi
+
 ```bash
 $ vcgencmd
 ```
@@ -35,17 +36,19 @@ Source
 
 [stopping sd card corruption on a raspberry pi](http://ideaheap.com/2013/07/stopping-sd-card-corruption-on-a-raspberry-pi/)
 
-Modify boot config.txt
-```bash
-$ vim /boot/config.txt
-```
-
 ## Configurations
  
-To enable headless WiFi:
+### Enable headless WiFi:
 
 Place `wpa_supplicant.conf` in `/boot/`
 
-Create an empty ssh file in `/boot/` to enable ssh access
+### Enable ssh on boot
+
+Place an empty file (named `ssh`) in `/boot/` to enable ssh access
+Example: `/boot/ssh`
+
+### About `config.txt` (The system configuration parameters)
+
+To control various settings of the OS and hardware, like fan speed and temperature.
 
 Place `config.txt` in `/boot/` to set configurations
