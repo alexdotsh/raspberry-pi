@@ -49,11 +49,26 @@ Place an empty file (named `ssh`) in `/boot/` to enable ssh access.
 Example: `/boot/ssh`
 
 Default ssh login to Pi (Change it on login):
-Username: pi
-Password: raspberry
+
+- Username: `pi`
+- Password: `raspberry`
 
 #### About `config.txt` (The system configuration parameters)
 
 To control various settings of the OS and hardware, like fan speed and temperature.
 
 Place `config.txt` in `/boot/` to set configurations
+
+## Discover the IP of your PI
+
+ping
+
+```bash
+$ ping raspberrypi.local
+```
+
+nmap
+
+```bash
+$ nmap -sn 192.168.1.0/24
+```
