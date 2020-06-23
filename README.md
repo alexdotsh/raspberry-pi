@@ -53,6 +53,12 @@ Default ssh login to Pi (Change it on login):
 - Username: `pi`
 - Password: `raspberry`
 
+ssh with key file 
+
+```bash
+ssh -i ~/.ssh/id_rsa pi@hostname
+```
+
 #### About `config.txt` (The system configuration parameters)
 
 To control various settings of the OS and hardware, like fan speed and temperature.
