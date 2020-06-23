@@ -14,3 +14,11 @@
 
 dtparam=poe_fan_temp0=80000,poe_fan_temp0_hyst=5000
 dtparam=poe_fan_temp1=82000,poe_fan_temp1_hyst=2000
+
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
