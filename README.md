@@ -77,4 +77,6 @@ nmap
 
 ```bash
 $ nmap -sn 192.168.1.0/24
+
+$ nmap -sn 192.168.1.0/24 | grep -B 2 B8:27:EB
 ```
