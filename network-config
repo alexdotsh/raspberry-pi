@@ -2,8 +2,8 @@
 
 wifis:
   wlan0:
-  dhcp4: true
-  optional: true
-  access-points:
-    <wifi network name>:
-      password: "<wifi password>"
+    dhcp4: true
+    optional: true
+    access-points:
+      <wifi network name>:
+        password: "<wifi password>"

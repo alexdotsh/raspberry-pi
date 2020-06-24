@@ -36,9 +36,9 @@ none        /var/log        tmpfs   size=1M,noatime         00
 Source: 
 * [stopping sd card corruption on a raspberry pi](http://ideaheap.com/2013/07/stopping-sd-card-corruption-on-a-raspberry-pi/)
 
-## Configurations
+## Configurations (RaspbianOS)
  
-#### Enable headless WiFi
+#### Enable WiFi
 
 Place `wpa_supplicant.conf` in `/boot/`
 
@@ -48,15 +48,20 @@ Place an empty file (named `ssh`) in `/boot/` to enable ssh access.
 
 Example: `/boot/ssh`
 
-Default ssh login to Pi (Change it on login):
+#### Default ssh login to Pi (Raspbian):
 
 - Username: `pi`
 - Password: `raspberry`
 
-ssh with key file 
+```bash
+$ ssh pi@<Raspberry Pi’s IP address>
+
+```
+
+#### With ssh key
 
 ```bash
-ssh -i ~/.ssh/id_rsa pi@hostname
+$ ssh -i ~/.ssh/id_rsa pi@hostname
 ```
 
 #### About `config.txt` (The system configuration parameters)
@@ -64,6 +69,28 @@ ssh -i ~/.ssh/id_rsa pi@hostname
 To control various settings of the OS and hardware, like fan speed and temperature.
 
 Place `config.txt` in `/boot/` to set configurations
+
+## Configurations (Ubuntu)
+
+#### Enable WiFi
+
+Edit the network-config file in (`system-boot` root drive) and add your Wi-Fi credentials.
+An example is already included in the file, it can simply be adapt it.
+
+#### Default ssh login to Pi (Ubuntu):
+
+- Username: `ubuntu`
+- Password: `ubuntu`
+
+```bash
+$ ssh ubuntu@<Raspberry Pi’s IP address>
+```
+
+#### With ssh key
+
+```bash
+$ ssh -i ~/.ssh/id_rsa pi@hostname
+```
 
 ## Discover the IP of your PI
 
@@ -79,4 +106,9 @@ nmap
 $ nmap -sn 192.168.1.0/24
 
 $ nmap -sn 192.168.1.0/24 | grep -B 2 B8:27:EB
+
+$ arp -na | grep -i "b8:27:eb"
+
+# Raspberry Pi 4
+$ arp -na | grep -i "dc:a6:32"
 ```
