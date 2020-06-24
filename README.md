@@ -55,7 +55,6 @@ Example: `/boot/ssh`
 
 ```bash
 $ ssh pi@<Raspberry Pi’s IP address>
-
 ```
 
 #### With ssh key
