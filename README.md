@@ -99,6 +99,34 @@ power_state:
   mode: reboot
 ```
 
+##### Using `netplan` to setup the network interfaces and change `existing wifi`
+
+Edit the file `/etc/netplan/your-config-file.yaml` and add or change the following
+
+Example code
+
+```bash
+version: 2
+renderer: networkd
+wifis:
+  wlan0:
+    dhcp4: true
+    dhcp6: true
+    optional: true
+    access-points:
+      "SSID":
+         password: "PassPhrase"
+
+```
+
+Once done, test, generate and apply the config that way:
+
+- Testing: `sudo netplan --debug try` (continue even if successful)
+- Generate: `sudo netplan --debug generate` (will give you more details in case of issues with the previous command)
+- Apply: `sudo netplan --debug apply`
+- Reload: `systemctl daemon-reload`
+- Reboot: `reboot`
+
 #### Default ssh login to Pi (Ubuntu):
 
 - Username: `ubuntu`
