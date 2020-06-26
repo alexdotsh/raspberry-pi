@@ -197,3 +197,9 @@ $ arp -na | grep -i "b8:27:eb"
 # Raspberry Pi 4
 $ arp -na | grep -i "dc:a6:32"
 ```
+
+### OS update
+
+```bash
+$ sudo apt update --fix-missing -y && sudo apt dist-upgrade -y && sudo apt autoremove --purge -y
+```
