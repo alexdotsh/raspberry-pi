@@ -71,10 +71,33 @@ Place `config.txt` in `/boot/` to set configurations
 
 ## Configurations (Ubuntu)
 
-#### Enable WiFi
+#### Enable WiFi (Working)
 
 Edit the network-config file in (`system-boot` root drive) and add your Wi-Fi credentials.
 An example is already included in the file, it can simply be adapt it.
+
+Use the networkd in renderer as `renderer: networkd`
+
+```bash
+version: 2
+renderer: networkd
+wifis:
+  wlan0:
+    dhcp4: true
+    dhcp6: true
+    optional: true
+    access-points:
+      "SSID":
+         password: "PassPhrase"
+
+```
+
+Add the following to the end of the `user-data`
+
+```yaml
+power_state:
+  mode: reboot
+```
 
 #### Default ssh login to Pi (Ubuntu):
 
@@ -90,6 +113,41 @@ $ ssh ubuntu@<Raspberry Pi’s IP address>
 ```bash
 $ ssh -i ~/.ssh/id_rsa pi@hostname
 ```
+
+#### Fan temprature
+
+```bash
+cat /sys/class/thermal/thermal_zone0/temp
+```
+
+#### Fan control and cooling
+
+The fan config is in `/sys/class/thermal/cooling_device0/`, if you cat `/sys/class/thermal/cooling_device0/type`, it should be "rpi-poe-fan".
+
+Once you've confirmed that, use this udev rule as an example:
+
+```bash
+SUBSYSTEM=="thermal"
+KERNEL=="thermal_zone0"
+
+# If the temp hits 75c, turn on the fan. Turn it off again when it goes back down to 70.
+ATTR{trip_point_0_temp}="75000"
+ATTR{trip_point_0_hyst}="5000"
+#
+# If the temp hits 78c, higher RPM.
+ATTR{trip_point_1_temp}="78000"
+ATTR{trip_point_1_hyst}="2000"
+#
+# If the temp hits 80c, higher RPM.
+ATTR{trip_point_2_temp}="80000"
+ATTR{trip_point_2_hyst}="2000"
+#
+# If the temp hits 81c, highest RPM.
+ATTR{trip_point_3_temp}="81000"
+ATTR{trip_point_3_hyst}="5000"
+```
+
+Place it in `/etc/udev/rules.d/50-rpi-fan.rules`
 
 ## Discover the IP of your PI
 

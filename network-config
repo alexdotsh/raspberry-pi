@@ -1,9 +1,12 @@
 # Example wifi config for Ubuntu
 
+version: 2
+renderer: networkd
 wifis:
   wlan0:
     dhcp4: true
+    dhcp6: true
     optional: true
     access-points:
-      <wifi network name>:
-        password: "<wifi password>"
+      "SSID":
+         password: "PassPhrase"
