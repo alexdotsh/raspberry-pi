@@ -101,7 +101,7 @@ power_state:
 
 ##### Using `netplan` to setup the network interfaces and change `existing wifi`
 
-Edit the file `/etc/netplan/your-config-file.yaml` and add or change the following
+Edit the file `/etc/netplan/50-cloud-init.yaml` and add or change the following
 
 Example code
 
