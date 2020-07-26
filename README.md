@@ -2,7 +2,7 @@
 
 ## Commands
 
-The `vcgencmd` is a command line utility that can get various pieces of information from the VideoCore GPU on the Raspberry Pi
+The `vcgencmd` is a command line utility from RaspbianOS, that can get various pieces of information from the VideoCore GPU on the Raspberry Pi.
 
 ```bash
 $ vcgencmd
@@ -71,61 +71,74 @@ Place `config.txt` in `/boot/` to set configurations
 
 ## Configurations (Ubuntu)
 
-#### Enable WiFi (Working)
+### Enable WiFi on boot (Working)
 
-Edit the network-config file in (`system-boot` root drive) and add your Wi-Fi credentials.
-An example is already included in the file, it can simply be adapt it.
-
-Use the networkd in renderer as `renderer: networkd`
+Edit the `network-config` file in `system-boot` boot drive, and add your Wi-Fi details.
 
 ```bash
-version: 2
-renderer: networkd
-wifis:
-  wlan0:
-    dhcp4: true
-    dhcp6: true
-    optional: true
-    access-points:
-      "SSID":
-         password: "PassPhrase"
-
+network:
+  version: 2
+  renderer: networkd
+  wifis:
+    wlan0:
+      dhcp4: true
+      dhcp6: true
+      optional: true
+      access-points:
+        "SSID":
+          password: "PassPhrase"
 ```
 
-Add the following to the end of the `user-data`
+Add the following to the end of the `user-data` file in `system-boot` boot drive.
 
 ```yaml
 power_state:
   mode: reboot
 ```
 
-##### Using `netplan` to setup the network interfaces and change `existing wifi`
+Power on the PI and let neplan to initialize, after 5mins reboot the PI again and it will connect to the WiFi.
+
+### Update existing WiFi using netplan
 
 Edit the file `/etc/netplan/50-cloud-init.yaml` and add or change the following
 
-Example code
+Example config with IPv4 and IPv6 DHCP:
 
-```bash
-version: 2
-renderer: networkd
-wifis:
-  wlan0:
-    dhcp4: true
-    dhcp6: true
-    optional: true
-    access-points:
-      "SSID":
-         password: "PassPhrase"
-
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  wifis:
+    wlan0:
+      dhcp4: true
+      dhcp6: true
+      access-points:
+        "SSID":
+          password: "PassPhrase"
 ```
 
-Once done, test, generate and apply the config that way:
+With static IPv4 addresss
 
-- Testing: `sudo netplan --debug try` (continue even if successful)
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  wifis:
+    wlan0:
+      dhcp4: no
+      dhcp6: true
+      addresses: [192.168.0.21/24]
+      access-points:
+        "SSID":
+          password: "PassPhrase"
+```
+
+Once done, generate, apply, systemctl daemon-reload, and reboot with the following commands:
+
 - Generate: `sudo netplan --debug generate` (will give you more details in case of issues with the previous command)
 - Apply: `sudo netplan --debug apply`
-- Reload: `systemctl daemon-reload`
-- Reboot: `reboot`
+- Reload: `sudo systemctl daemon-reload`
+- Reboot: `sudo reboot`
 
 #### Default ssh login to Pi (Ubuntu):
 
