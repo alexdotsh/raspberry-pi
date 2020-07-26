@@ -73,7 +73,9 @@ Place `config.txt` in `/boot/` to set configurations
 
 ### Enable WiFi on boot (Working)
 
-Edit the `network-config` file in `system-boot` boot drive, and add your Wi-Fi details.
+Edit the `network-config` file in `system-boot` in boot drive, and add your Wi-Fi details.
+
+Example config with IPv4 and IPv6 DHCP enabled:
 
 ```bash
 network:
@@ -89,7 +91,7 @@ network:
           password: "PassPhrase"
 ```
 
-Add the following to the end of the `user-data` file in `system-boot` boot drive.
+Add the following to the end of the `user-data` file in `system-boot` in boot drive.
 
 ```yaml
 power_state:
@@ -100,9 +102,9 @@ Power on the PI and let neplan to initialize, after 5mins reboot the PI again an
 
 ### Update existing WiFi using netplan
 
-Edit the file `/etc/netplan/50-cloud-init.yaml` and add or change the following
+Edit the `/etc/netplan/50-cloud-init.yaml` file, and add or change the following config:
 
-Example config with IPv4 and IPv6 DHCP:
+Example config with IPv4 and IPv6 DHCP enabled:
 
 ```yaml
 network:
@@ -117,7 +119,7 @@ network:
           password: "PassPhrase"
 ```
 
-With static IPv4 addresss
+With static IPv4 address:
 
 ```yaml
 network:
@@ -125,13 +127,14 @@ network:
   renderer: networkd
   wifis:
     wlan0:
-      dhcp4: no
       dhcp6: true
       addresses: [192.168.0.21/24]
       access-points:
         "SSID":
           password: "PassPhrase"
 ```
+
+More configuration examples can be found [here](https://netplan.io/examples)
 
 Once done, generate, apply, systemctl daemon-reload, and reboot with the following commands:
 
