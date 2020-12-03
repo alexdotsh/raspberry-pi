@@ -104,9 +104,8 @@ Power on the PI and let neplan to initialize, after 5mins reboot the PI again an
 
 Edit the `/etc/netplan/50-cloud-init.yaml` file, and add or change the following config:
 
-Example config with IPv4 and IPv6 DHCP enabled:
-
 ```yaml
+# Example config with IPv4 and IPv6 DHCP enabled:
 network:
   version: 2
   renderer: networkd
@@ -143,7 +142,7 @@ Once done, generate, apply, systemctl daemon-reload, and reboot with the followi
 - Reload: `sudo systemctl daemon-reload`
 - Reboot: `sudo reboot`
 
-#### Default ssh login to Pi (Ubuntu):
+### Default ssh login to Pi (Ubuntu):
 
 - Username: `ubuntu`
 - Password: `ubuntu`
@@ -158,10 +157,17 @@ $ ssh ubuntu@<Raspberry Pi’s IP address>
 $ ssh -i ~/.ssh/id_rsa pi@hostname
 ```
 
-#### Fan temprature
+### Fan temperature
+
+Display Raspberry Pi ARM CPU temperature
 
 ```bash
-cat /sys/class/thermal/thermal_zone0/temp
+$ cat /sys/class/thermal/thermal_zone0/temp
+```
+
+```bash
+$ cpu=$(</sys/class/thermal/thermal_zone0/temp)
+$ echo "$((cpu/1000)) c"
 ```
 
 #### Fan control and cooling
@@ -174,20 +180,20 @@ Once you've confirmed that, use this udev rule as an example:
 SUBSYSTEM=="thermal"
 KERNEL=="thermal_zone0"
 
-# If the temp hits 75c, turn on the fan. Turn it off again when it goes back down to 70.
-ATTR{trip_point_0_temp}="75000"
-ATTR{trip_point_0_hyst}="5000"
+# If the temp hits 70c, turn on the fan. Turn it off again when it goes back down to 65.
+ATTR{trip_point_0_temp}="70000"
+ATTR{trip_point_0_hyst}="2000"
 #
-# If the temp hits 78c, higher RPM.
-ATTR{trip_point_1_temp}="78000"
-ATTR{trip_point_1_hyst}="2000"
+# If the temp hits 75c, higher RPM.
+ATTR{trip_point_1_temp}="75000"
+ATTR{trip_point_1_hyst}="3000"
 #
 # If the temp hits 80c, higher RPM.
 ATTR{trip_point_2_temp}="80000"
-ATTR{trip_point_2_hyst}="2000"
+ATTR{trip_point_2_hyst}="4000"
 #
-# If the temp hits 81c, highest RPM.
-ATTR{trip_point_3_temp}="81000"
+# If the temp hits 85c, highest RPM.
+ATTR{trip_point_3_temp}="85000"
 ATTR{trip_point_3_hyst}="5000"
 ```
 
