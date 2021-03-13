@@ -42,6 +42,14 @@ Source:
 
 Place `wpa_supplicant.conf` in `/boot/`
 
+Restart WiFi without reboot
+
+```bash
+$ sudo systemctl daemon-reload
+
+$ sudo systemctl restart dhcpcd
+```
+
 #### Enable ssh on boot
 
 Place an empty file (named `ssh`) in `/boot/` to enable ssh access.
